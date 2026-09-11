@@ -1,0 +1,89 @@
+{
+    "contact_app_title": "aplicación de contacto",
+    "nav_links": {
+        "contacts_link": "Contactos",
+        "about_link": "Acerca de",
+        "logout_link": "Finalizar la sesión"
+    },
+    "add_contact": "Agregar contacto",
+    "edit_contact": "Editar contacto",
+    "delete_contact": "Eliminar contacto",
+    "update_contact_btn": "Actualizar contacto",
+    "save_contact_btn": "Guardar contacto",
+    "cancel_btn": "Cancelar",
+    "view_btn": "Vista",
+    "edit_btn": "Editar",
+    "delete_btn": "Borrar",
+    "contact_list": "Lista de contactos",
+    "contacts": "Contactos",
+    "delete_confirmation_msg": "¿Estás segura de que quieres eliminar: {{name}}? Esta acción no se puede deshacer.",
+    "alert_meassages": {
+        "get_all_contacts": "Contacto recuperado con éxito.",
+        "error_contact": "No se pudieron obtener los contactos.",
+        "save_contact": "Contacto añadido correctamente.",
+        "update_contact": "Contacto actualizado correctamente.",
+        "delete_contact": "Contacto eliminado correctamente."
+    },
+    "data-grid-header": {
+        "name": "Nombre",
+        "mobile_no": "Número de móvil",
+        "country": "País",
+        "actions": "Comportamiento",
+        "email": "Correo electrónico"
+    },
+    "serach_placeholder": "Buscar por nombre, correo electrónico, teléfono o país...",
+    "datagrid": {
+        "rowsPerPage": "Fila por página",
+        "of": "de",
+        "moreThan": "más que"
+    },
+    "form_label": {
+        "name": "nombre",
+        "mobile_no": "Número de móvil",
+        "email": "Correo electrónico",
+        "country": "País"
+    },
+    "form_helperText": {
+        "name": "Este nombre de contacto es obligatorio.",
+        "mobile_no": "Este número de teléfono móvil es obligatorio.",
+        "email_required": "Este correo electrónico es obligatorio.",
+        "email_format": "Por favor ingrese un correo electrónico válido.",
+        "country": "Este país es necesario."
+    },
+    "about": {
+        "contct_app_title": "Solicitud de contacto",
+        "contact_app_description": "Organiza tus contactos de forma sencilla y eficiente.",
+        "app_title": "Acerca de la aplicación",
+        "app_description": "Contact Manager es una moderna aplicación web que te ayuda a almacenar, organizar y gestionar tus contactos sin esfuerzo. Tanto si son contactos personales como profesionales, todo está disponible en un único lugar seguro y fácil de usar.",
+        "features": "Características",
+        "add_contact_title": "Agregar contactos",
+        "add_contact_desc": "Crea nuevos contactos con información esencial.",
+        "edit_contact_title": "Actualizar contactos",
+        "edit_contact_desc": "Actualiza tu información de contacto cuando quieras.",
+        "search_contact_title": "Buscar",
+        "search_contact_desc": "Encuentra contactos al instante mediante la búsqueda.",
+        "delete_contact_title": "Borrar",
+        "delete_contact_desc": "Elimina fácilmente los contactos no deseados.",
+        "technologies_used": "Tecnologías utilizadas",
+        "our_mission_title": "Nuestra Misión",
+        "our_mission_desc": "Nuestra misión es proporcionar una experiencia de gestión de contactos sencilla, rápida y fiable, al tiempo que demostramos las prácticas modernas de desarrollo con React."
+    },
+    "login": {
+        "footerText": "¿No tienes una cuenta?",
+        "footerLinkto": "/signup",
+        "footerLinkText": "Crear una cuenta",
+        "submitLabel": "Acceso",
+        "signin_label": "Iniciar sesión",
+        "create_account_label": "Crear una cuenta",
+        "login_desc": "¡Bienvenido de nuevo! Inicia sesión para continuar.",
+        "create_account_desc": "Crea una cuenta para gestionar tus contactos fácilmente.",
+        "username_label": "Nombre de usuario",
+        "fullName_label": "Nombre completo",
+        "email_label": "Dirección de correo electrónico",
+        "password_label": "Contraseña",
+        "confirm_password_label": "confirmar Contraseña",
+        "remember_me_label": "Acuérdate de mí",
+        "role_label": "Role",
+        "signup_footerText": "¿Ya tienes una cuenta?"
+    }
+}

@@ -1,0 +1,90 @@
+{
+    "contact_app_title": "Contact App",
+    "nav_links": {
+        "contacts_link": "Contacts",
+        "about_link": "About",
+        "logout_link": "Log out"
+    },
+    "add_contact": "Add Contact",
+    "edit_contact": "Edit Contact",
+    "delete_contact": "Delete Contact",
+    "update_contact_btn": "Update Contact",
+    "save_contact_btn": "Save Contact",
+    "cancel_btn": "Cancel",
+    "view_btn": "View",
+    "edit_btn": "Edit",
+    "delete_btn": "Delete",
+    "contact_list": "Contact List",
+    "contacts": "Contacts",
+    "delete_confirmation_msg": "Are you sure you want to delete : {{name}}? This action cannot be undone.",
+    "get_all_contacts": "Contact fetched successfully.",
+    "alert_meassages": {
+        "get_all_contacts": "Contact fetched successfully.",
+        "error_contact": "Failed to fetch contacts.",
+        "save_contact": "Contact added successfully.",
+        "update_contact": "Contact updated successfully.",
+        "delete_contact": "Contact deleted successfully."
+    },
+    "data-grid-header": {
+        "name": "Name",
+        "mobile_no": "Mobile No",
+        "country": "Country",
+        "actions": "Actions",
+        "email": "Email"
+    },
+    "serach_placeholder": "Search by name, email, phone, or country...",
+    "datagrid": {
+        "rowsPerPage": "Row per Page",
+        "of": "of",
+        "moreThan": "more than"
+    },
+    "form_label": {
+        "name": "Name",
+        "mobile_no": "Mobile No",
+        "email": "Email",
+        "country": "Country"
+    },
+    "form_helperText": {
+        "name": "This contact name is required.",
+        "mobile_no": "This mobile number is required.",
+        "email_required": "This email is required.",
+        "email_format": "Please enter valid email.",
+        "country": "This country is required."
+    },
+    "about": {
+        "contct_app_title": "Contact Application",
+        "contact_app_description": "Organize your contacts with simplicity and efficiency.",
+        "app_title": "About the Application",
+        "app_description": "Contact Manager is a modern web application that helps you store, organize, and manage your contacts effortlessly. Whether it's personal or professional contacts, everything is available in one secure and easy-to-use place.",
+        "features": "Features",
+        "add_contact_title": "Add Contacts",
+        "add_contact_desc": "Create new contacts with essential details.",
+        "edit_contact_title": "Update Contacts",
+        "edit_contact_desc": "Update contact information anytime.",
+        "search_contact_title": "Search",
+        "search_contact_desc": "Find contacts instantly using search.",
+        "delete_contact_title": "Delete",
+        "delete_contact_desc": "Remove unwanted contacts easily.",
+        "technologies_used": "Technologies Used",
+        "our_mission_title": "Our Mission",
+        "our_mission_desc": "Our mission is to provide a simple, fast, and reliable contact management experience while demonstrating modern React development practices."
+    },
+    "login": {
+        "footerText": "Don't have an account?",
+        "footerLinkto": "/signup",
+        "footerLinkText": "Create Account",
+        "submitLabel": "Login",
+        "signin_label": "Sign In",
+        "create_account_label": "Create Account",
+        "login_desc": "Welcome back! Please login to continue.",
+        "create_account_desc": "Create an account to manage your contacts with ease.",
+        "username_label": "Username",
+        "fullName_label": "Full Name",
+        "email_label": "Email Address",
+        "password_label": "Password",
+        "confirm_password_label": "Confirm Password",
+        "remember_me_label": "Remember me",
+        "role_label": "Role",
+        "signup_footerText": "Already have an account?"
+    }
+}
