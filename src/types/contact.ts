@@ -1,25 +1,27 @@
 export interface Contact {
   id: number;
   name: string;
-  mobile_no: string;
+  mobileNo: string;
   email: string;
   country: any;
+  userId?: number;
 }
 
 export interface ContactFormState {
   id?: number;
-  user_id?: number;
+  userId?: number;
   name: string;
-  mobile_no: string;
+  mobileNo: string;
   email: string;
   country: any;
 }
 
 export const emptyContactForm: ContactFormState = {
   name: "",
-  mobile_no: "",
+  mobileNo: "",
   email: "",
   country: "",
+  userId: 0,
 };
 
 export interface CountryType {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Alert,
   Avatar,
@@ -26,10 +26,11 @@ import useApi from "../hook/useApi";
 import { useRoleStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { enUS, esES } from "@mui/x-data-grid/locales";
+import { enUS, esES, deDE } from "@mui/x-data-grid/locales";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/reduxStore";
 import { Spinner } from '../components/spinner/Spinner';
+import { useSearchParams } from "react-router-dom";
 
 /* const initialContacts: Contact[] = [
   {
@@ -62,7 +63,7 @@ function Dashboard() {
   const [contacts, setContacts] = useState<any>([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<Contact | null>(null);
-  const [mode, setMode] = useState<"add" | "edit">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "">("");
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [viewContact, setViewContact] = useState<Contact | null>(null);
   const [form, setForm] = useState<ContactFormState>(emptyContactForm);
@@ -72,28 +73,39 @@ function Dashboard() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   //const { userRole } = useUserRoleContext();
   const userRole = useRoleStore((state) => state.userRole);
+  const userId = useRoleStore((state) => state.userId);
   const { loading, request } = useApi<any>();
   const [isLoading, setIsLoading] = useState<boolean>(loading);
   const { t, i18n } = useTranslation();
   const lang = useSelector((state: RootState) => state.Language.value);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const theme = createTheme(
     {},
-    i18n.language === "en" ? enUS : esES
+    i18n.language === "en" ? enUS : i18n.language === "es" ? esES : deDE
   );
 
   useEffect(() => {
     getAllContacts();
   }, []);
 
-  const filteredContacts = () => {
+  const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    if (searchParams.get("focus") === "true") {
+      inputRef.current?.focus();
+    } else if (searchParams.get("addContact") === "true") {
+      handleOpenAdd();
+    }
+  }, [searchParams]);
+
+  const filteredContacts = () => {
     if (!searchQuery) {
       return contacts;
     } else {
       const filtered = contacts.filter((contact: any) =>
         contact.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         contact.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.mobile_no?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        contact.mobileNo?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         contact.country?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       return filtered;
@@ -102,50 +114,22 @@ function Dashboard() {
 
   const getAllContacts = async (operation?: string): Promise<Contact[]> => {
     try {
-      const response = await request("GET", "/contacts");
+      const response = await request("GET", `/contacts/user/${userId}`);
       setContacts(response.data);
       if (operation !== "add" && operation !== "edit" && operation !== "delete") {
         setFeedback({ type: "success", message: t("alert_meassages.get_all_contacts") });
+      } else {
+        if (operation === "add") {
+          setFeedback({ type: "success", message: t("alert_meassages.save_contact") });
+        } else if (operation === "edit") {
+          setFeedback({ type: "success", message: t("alert_meassages.update_contact") });
+        } else if (operation === "delete") {
+          setFeedback({ type: "success", message: t("alert_meassages.delete_contact") });
+        }
       }
       return response;
     } catch (e: any) {
       setFeedback({ type: "error", message: t("alert_meassages.error_contact") });
-      throw e;
-    }
-  };
-
-  const addContact = async (newContact: Contact): Promise<Contact> => {
-    try {
-      const response = await request("POST", "/contacts", newContact);
-      setFeedback({ type: "success", message: t("alert_meassages.save_contact") });
-      getAllContacts("add");
-      handleCloseDialog();
-      return await response;
-    } catch (e: any) {
-      const errorMessage =
-        e?.error ||
-        e?.response?.data?.message ||
-        e?.message;
-      setAlert({ type: "error", message: errorMessage });
-      throw e;
-    }
-  };
-
-  const updateContact = async (updatedContact: Contact): Promise<Contact> => {
-    const contactId = selectedContact?.id;
-    console.log("Updating contact with ID:", contactId, "Updated data:", updatedContact);
-    try {
-      const response = await request("PUT", `/contacts/${contactId}`, updatedContact);
-      setFeedback({ type: "success", message: t("alert_meassages.update_contact") });
-      getAllContacts("edit");
-      handleCloseDialog();
-      return await response;
-    } catch (e: any) {
-      const errorMessage =
-        e?.error ||
-        e?.response?.data?.message ||
-        e?.message;
-      setAlert({ type: "error", message: errorMessage });
       throw e;
     }
   };
@@ -178,14 +162,13 @@ function Dashboard() {
   };
 
   const handleOpenEdit = (contact: Contact) => {
-    console.log(contact);
     setMode("edit");
     setOpenDialog(true);
     setSelectedContact(contact);
     setAlert(null);
     setForm({
       name: contact?.name,
-      mobile_no: contact?.mobile_no?.toString(),
+      mobileNo: contact?.mobileNo?.toString(),
       email: contact?.email,
       country: contact?.country,
     });
@@ -206,40 +189,6 @@ function Dashboard() {
     setViewContact(null);
   };
 
-  const handleChange = (field: any) => (event: any) => {
-    if (field === "country") {
-      setForm((prev) => ({ ...prev, [field]: event?.label }));
-    } else {
-      setForm((prev) => ({ ...prev, [field]: event.target.value }));
-    }
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    if (!event.target.checkValidity()) {
-      setAlert({ type: "error", message: "Please fill in all fields before saving and validations." });
-      return;
-    }
-
-    if (mode === "edit" && selectedContact) {
-      updateContact(getContactDetails(form));
-    } else {
-      addContact(getContactDetails(form));
-    }
-  };
-
-  const getContactDetails = (form: ContactFormState): Contact => {
-    console.log(form.country);
-    const newContact: Contact = {
-      id: selectedContact?.id || 0,
-      name: form.name.trim(),
-      mobile_no: form?.mobile_no?.trim().toString(),
-      email: form.email.trim(),
-      country: form?.country
-    };
-    return newContact;
-  }
-
   const translateRows = async (
     rows: Contact[],
     language: string,
@@ -253,7 +202,7 @@ function Dashboard() {
           ...row,
           name: await translateResponse(row.name, language),
           email: await translateResponse(row.email, language),
-          mobile_no: await translateResponse(row.mobile_no, language),
+          mobileNo: await translateResponse(row.mobileNo, language),
           country: await translateResponse(row.country, language),
         }))
       ).then((translatedRows) => {
@@ -295,7 +244,6 @@ function Dashboard() {
 
   useEffect(() => {
     i18n.changeLanguage(lang);
-    console.log("in useEfefct", lang);
     const loadRows = async () => {
       const translated = await translateRows(filteredContacts(), lang, false);
       setContacts(translated);
@@ -333,22 +281,19 @@ function Dashboard() {
         </Box>
       ),
     },
-    { field: "mobile_no", headerName: t("data-grid-header.mobile_no"), flex: 0.8, minWidth: 140 },
+    { field: "mobileNo", headerName: t("data-grid-header.mobileNo"), flex: 0.8, minWidth: 140 },
     { field: "email", headerName: t("data-grid-header.email"), flex: 1.2, minWidth: 220 },
     {
-      field: "country", headerName: t("data-grid-header.country"), flex: 0.8, minWidth: 120,
-      renderCell: (params) => {
-        console.log(params.row.country);
-      }
+      field: "country", headerName: t("data-grid-header.country"), flex: 0.8, minWidth: 120
     },
     {
       field: "actions",
       headerName: t("data-grid-header.actions"),
       sortable: false,
       filterable: false,
-      minWidth: 250,
+      minWidth: 350,
       renderCell: (params) => {
-        if (userRole !== "Admin" && userRole !== "SuperAdmin") {
+        if (userRole !== "Admin" && userRole !== "Super Admin") {
           return (
             <Stack direction="row" spacing={1} sx={{ whiteSpace: "nowrap", alignItems: "center", py: 2 }}>
               <Button size="small" sx={{ color: "#2563eb", textTransform: "none" }} startIcon={<ViewIcon />} onClick={() => handleOpenView(params.row as Contact)}>
@@ -380,7 +325,7 @@ function Dashboard() {
     <Box sx={{ position: 'relative' }}>
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Stack spacing={3}>
-          {userRole === "Admin" || userRole === "SuperAdmin" ? (
+          {userRole === "Admin" || userRole === "Super Admin" ? (
             <Box sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}>
               <Button variant="contained" sx={{ borderRadius: 999, px: 2.5, py: 1 }} startIcon={<AddIcon />} onClick={handleOpenAdd}>
                 {t("add_contact")}
@@ -406,6 +351,7 @@ function Dashboard() {
                   variant="outlined"
                   size="small"
                   value={searchQuery}
+                  inputRef={inputRef}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   sx={{
                     width: 350,
@@ -414,7 +360,7 @@ function Dashboard() {
                     },
                   }}
                 />
-                <Chip label={`${filteredContacts().length}` + t("contacts")} color="primary" variant="outlined" sx={{ borderRadius: 999 }} />
+                <Chip label={`${filteredContacts().length}` + " " + t("contacts")} color="primary" variant="outlined" sx={{ borderRadius: 999 }} />
               </Box>
             </Box>
 
@@ -485,12 +431,10 @@ function Dashboard() {
         <ContactFormModal
           open={openDialog}
           mode={mode}
-          form={form}
-          selectedContact={selectedContact}
-          alert={alert}
-          onClose={handleCloseDialog}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
+          contForm={form}
+          conSelectedContact={selectedContact}
+          getAllContacts={getAllContacts}
+          totalContacts={contacts.length}
         />
 
         <DeleteContactModal

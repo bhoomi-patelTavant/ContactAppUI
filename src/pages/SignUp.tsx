@@ -36,11 +36,11 @@ function SignUp() {
       "username": form.username,
       "email": form.email,
       "password": form.password,
-      "full_name": form.fullName,
-      "user_role": form.userRole || "User"
+      "fullName": form.fullName,
+      "userRole": form.userRole || "User"
     }
     try {
-      const response = await request("POST", "/users/register", registerBody);
+      const response = await request("POST", "auth/register", registerBody);
       if (response.status === 201) {
         setAlert({ type: "success", message: "Account Created Successfully" });
         navigate("/login");

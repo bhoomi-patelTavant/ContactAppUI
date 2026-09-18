@@ -1,0 +1,95 @@
+{
+    "contact_app_title": "Kontakt-App",
+    "nav_links": {
+        "contacts_link": "Kontakte",
+        "about_link": "Über uns",
+        "logout_link": "Abmelden"
+    },
+    "add_contact": "Kontakt hinzufügen",
+    "edit_contact": "Kontakt bearbeiten",
+    "delete_contact": "Kontakt löschen",
+    "update_contact_btn": "Kontakt aktualisieren",
+    "save_contact_btn": "Kontakt speichern",
+    "cancel_btn": "Abbrechen",
+    "view_btn": "Ansehen",
+    "edit_btn": "Bearbeiten",
+    "delete_btn": "Löschen",
+    "contact_list": "Kontaktliste",
+    "contacts": "Kontakte",
+    "delete_confirmation_msg": "Sind Sie sicher, dass Sie : {{name}} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "get_all_contacts": "Kontakt erfolgreich abgerufen.",
+    "alert_meassages": {
+        "get_all_contacts": "Kontakt erfolgreich abgerufen.",
+        "error_contact": "Kontakte konnten nicht geladen werden.",
+        "save_contact": "Kontakt erfolgreich hinzugefügt.",
+        "update_contact": "Kontakt erfolgreich aktualisiert.",
+        "delete_contact": "Kontakt erfolgreich gelöscht."
+    },
+    "data-grid-header": {
+        "name": "Name",
+        "mobileNo": "Handynummer",
+        "country": "Land",
+        "actions": "Aktionen",
+        "email": "E-Mail"
+    },
+    "serach_placeholder": "Suche nach Name, E-Mail, Telefon oder Land...",
+    "datagrid": {
+        "rowsPerPage": "Zeilen pro Seite",
+        "of": "von",
+        "moreThan": "mehr als"
+    },
+    "form_label": {
+        "name": "Name",
+        "mobileNo": "Handynummer",
+        "email": "E-Mail",
+        "country": "Land"
+    },
+    "form_helperText": {
+        "name": "Dieser Kontaktname ist erforderlich.",
+        "mobileNo": "Diese Handynummer ist erforderlich.",
+        "email_required": "Diese E-Mail ist erforderlich.",
+        "email_format": "Bitte geben Sie eine gültige E-Mail ein.",
+        "country": "Dieses Land ist erforderlich."
+    },
+    "about": {
+        "contct_app_title": "Kontaktanwendung",
+        "contact_app_description": "Organisieren Sie Ihre Kontakte mit Einfachheit und Effizienz.",
+        "app_title": "Über die Anwendung",
+        "app_description": "Contact Manager ist eine moderne Webanwendung, die Ihnen hilft, Ihre Kontakte einfach, sicher und effizient zu speichern, zu organisieren und zu verwalten. Ob privat oder beruflich, alles ist an einem sicheren und leicht zu bedienenden Ort verfügbar.",
+        "features": "Funktionen",
+        "add_contact_title": "Kontakte hinzufügen",
+        "add_contact_desc": "Erstellen Sie neue Kontakte mit wichtigen Details.",
+        "edit_contact_title": "Kontakte aktualisieren",
+        "edit_contact_desc": "Aktualisieren Sie Kontaktinformationen jederzeit.",
+        "search_contact_title": "Suchen",
+        "search_contact_desc": "Finden Sie Kontakte schnell über die Suche.",
+        "delete_contact_title": "Löschen",
+        "delete_contact_desc": "Entfernen Sie unerwünschte Kontakte leicht.",
+        "technologies_used": "Verwendete Technologien",
+        "our_mission_title": "Unsere Mission",
+        "our_mission_desc": "Unsere Mission ist es, eine einfache, schnelle und zuverlässige Kontaktverwaltung zu bieten und dabei moderne React-Entwicklungspraktiken zu demonstrieren."
+    },
+    "login": {
+        "footerText": "Sie haben noch kein Konto?",
+        "footerLinkto": "/signup",
+        "footerLinkText": "Konto erstellen",
+        "submitLabel": "Anmelden",
+        "signin_label": "Anmelden",
+        "create_account_label": "Konto erstellen",
+        "login_desc": "Willkommen zurück! Bitte melden Sie sich an, um fortzufahren.",
+        "create_account_desc": "Erstellen Sie ein Konto, um Ihre Kontakte einfach zu verwalten.",
+        "username_label": "Benutzername",
+        "fullName_label": "Vollständiger Name",
+        "email_label": "E-Mail-Adresse",
+        "password_label": "Passwort",
+        "confirm_password_label": "Passwort bestätigen",
+        "remember_me_label": "Angemeldet bleiben",
+        "role_label": "Rolle",
+        "signup_footerText": "Sie haben bereits ein Konto?"
+    },
+    "sign_up_role": {
+        "admin": "Admin",
+        "user": "Benutzer",
+        "super_admin": "Super Admin"
+    }
+}

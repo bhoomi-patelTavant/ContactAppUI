@@ -26,7 +26,7 @@
     },
     "data-grid-header": {
         "name": "Nombre",
-        "mobile_no": "Número de móvil",
+        "mobileNo": "Número de móvil",
         "country": "País",
         "actions": "Comportamiento",
         "email": "Correo electrónico"
@@ -39,13 +39,13 @@
     },
     "form_label": {
         "name": "nombre",
-        "mobile_no": "Número de móvil",
+        "mobileNo": "Número de móvil",
         "email": "Correo electrónico",
         "country": "País"
     },
     "form_helperText": {
         "name": "Este nombre de contacto es obligatorio.",
-        "mobile_no": "Este número de teléfono móvil es obligatorio.",
+        "mobileNo": "Este número de teléfono móvil es obligatorio.",
         "email_required": "Este correo electrónico es obligatorio.",
         "email_format": "Por favor ingrese un correo electrónico válido.",
         "country": "Este país es necesario."
@@ -85,5 +85,10 @@
         "remember_me_label": "Acuérdate de mí",
         "role_label": "Role",
         "signup_footerText": "¿Ya tienes una cuenta?"
+    },
+    "sign_up_role": {
+        "admin": "Administradora",
+        "user": "Usuario",
+        "super_admin": "Súper administrador"
     }
 }

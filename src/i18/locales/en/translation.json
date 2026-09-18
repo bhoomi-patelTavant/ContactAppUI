@@ -27,7 +27,7 @@
     },
     "data-grid-header": {
         "name": "Name",
-        "mobile_no": "Mobile No",
+        "mobileNo": "Mobile No",
         "country": "Country",
         "actions": "Actions",
         "email": "Email"
@@ -40,13 +40,13 @@
     },
     "form_label": {
         "name": "Name",
-        "mobile_no": "Mobile No",
+        "mobileNo": "Mobile No",
         "email": "Email",
         "country": "Country"
     },
     "form_helperText": {
         "name": "This contact name is required.",
-        "mobile_no": "This mobile number is required.",
+        "mobileNo": "This mobile number is required.",
         "email_required": "This email is required.",
         "email_format": "Please enter valid email.",
         "country": "This country is required."
@@ -86,5 +86,10 @@
         "remember_me_label": "Remember me",
         "role_label": "Role",
         "signup_footerText": "Already have an account?"
+    },
+    "sign_up_role": {
+        "admin": "Admin",
+        "user": "User",
+        "super_admin": "Super Admin"
     }
 }

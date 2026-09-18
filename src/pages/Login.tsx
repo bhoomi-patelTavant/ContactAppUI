@@ -18,6 +18,7 @@ function Login({ onLogin }: LoginProps) {
     const { loading, request } = useApi<any>();
     //const { setUserRole } = useUserRoleContext();
     const setUserRole = useRoleStore((state) => state.setUserRole);
+    const setUserId = useRoleStore((state) => state.setUserId);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -35,12 +36,13 @@ function Login({ onLogin }: LoginProps) {
             "password": form.password
         }
         try {
-            const response = await request("POST", "/users/login", loginBody);
+            const response = await request("POST", "/auth/login", loginBody);
             if (response.status !== 200) {
                 setAlert({ type: "error", message: response.message || "Login failed" });
                 return;
             }
             setUserRole(response.data.user_role);
+            setUserId(response.data.id);
             sessionStorage.setItem("isLoggedIn", "true");
             setAlert({ type: "success", message: "Login successful" });
             onLogin();

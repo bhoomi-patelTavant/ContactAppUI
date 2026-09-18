@@ -40,7 +40,7 @@ export default function ContactViewCard({ contact, onClose }: ContactViewCardPro
                                     <Typography variant="caption" color="text.secondary">
                                         Mobile No
                                     </Typography>
-                                    <Typography variant="body1">{contact.mobile_no}</Typography>
+                                    <Typography variant="body1">{contact.mobileNo}</Typography>
                                 </Box>
                                 <Box>
                                     <Typography variant="caption" color="text.secondary">
@@ -54,7 +54,7 @@ export default function ContactViewCard({ contact, onClose }: ContactViewCardPro
                 )}
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={onClose}>{t("cancel_btn")}</Button>
+                <Button variant="contained" sx={{ borderRadius: 999, px: 2.5, py: 1 }} onClick={onClose}>{t("cancel_btn")}</Button>
             </DialogActions>
         </Dialog>
     );

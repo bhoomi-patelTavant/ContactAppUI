@@ -53,9 +53,9 @@ function AuthForm({
     const convSubmitLabel = isLogin ? t("login.submitLabel") : t("login.signin_label")
 
     const userRoles = [
-        { id: 1, label: "SuperAdmin" },
-        { id: 2, label: "Admin" },
-        { id: 3, label: "User" },
+        { id: 1, label: t("sign_up_role.super_admin") },
+        { id: 2, label: t("sign_up_role.admin") },
+        { id: 3, label: t("sign_up_role.user") },
     ];
 
     useEffect(() => {

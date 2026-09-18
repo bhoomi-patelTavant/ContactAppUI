@@ -1,11 +1,16 @@
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./NavBar.css";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
+import { Button, IconButton, MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/languageSlice';
 import type { RootState, AppDispatch } from "../../store/reduxStore";
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+
+function UserAvatar() {
+  return <Avatar sx={{ bgcolor: "secondary.main", width: 32, height: 32 }}>U</Avatar>;
+}
 
 interface NavbarProps {
   onLogout: () => void;
@@ -15,14 +20,15 @@ interface NavbarProps {
 export const LANGUAGES = [
   { label: "English", code: "en" },
   { label: "Spanish", code: "es" },
+  { label: "German", code: "de" }
 ];
 
 function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
   const { t, i18n } = useTranslation();
   const lang = useSelector((state: RootState) => state.Language.value);
-  console.log(lang);
   const [language, setLanguage] = useState<string>(lang);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const onChangeLang = (e: SelectChangeEvent) => {
     const lang_code = e.target.value;
@@ -32,12 +38,13 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
   };
 
   function handleLogout() {
+    navigate("/login");
     onLogout();
   }
 
-   useEffect(() => {
-     i18n.changeLanguage(lang);
-   },[]);
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+  }, []);
 
   return (
     <nav className="navbar">
@@ -45,13 +52,13 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
 
       <div id="nav-links">
 
-        {isLoggedIn && <NavLink to="/contacts"> {t("nav_links.contacts_link")}</NavLink> }
+        {isLoggedIn && <NavLink to="/contacts"> {t("nav_links.contacts_link")}</NavLink>}
 
-        {isLoggedIn && <NavLink to="/about"> {t("nav_links.about_link")}</NavLink> }
+        {isLoggedIn && <NavLink to="/about"> {t("nav_links.about_link")}</NavLink>}
 
-        {isLoggedIn &&  <NavLink to="/login" onClick={handleLogout}>
+        {/*  {isLoggedIn && <NavLink to="/login" onClick={handleLogout}>
           {t("nav_links.logout_link")}
-        </NavLink> }
+        </NavLink>} */}
 
         <Select
           labelId="language-label"
@@ -85,7 +92,20 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
         >
           <MenuItem value="en">English</MenuItem>
           <MenuItem value="es">Spanish</MenuItem>
+          <MenuItem value="de">German</MenuItem>
         </Select>
+
+        {isLoggedIn && <>
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ borderRadius: 999, px: 2.5, py: 1 }}
+            startIcon={<LogoutRoundedIcon />} // Puts the icon before the text
+            onClick={() => handleLogout()}
+          >
+            {t("nav_links.logout_link")}
+          </Button></>}
       </div>
 
       {/*  <select defaultValue={i18n.language} onChange={onChangeLang}>

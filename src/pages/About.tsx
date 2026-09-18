@@ -3,15 +3,24 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store/reduxStore";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const { t, i18n } = useTranslation();
   const lang = useSelector((state: RootState) => state.Language.value);
+  const navigate = useNavigate();
 
   useEffect(() => {
     i18n.changeLanguage(lang);
-    console.log("in useEfefct", lang);
   }, [lang]);
+
+  const navigateToSearch = () => {
+    navigate("/contacts?focus=true");
+  }
+
+  const addContact = () => {
+    navigate("/contacts?addContact=true");
+  }
 
   return (
     <div className="about-page">
@@ -31,7 +40,7 @@ const About = () => {
         <section className="about-section">
           <h2>✨ {t("about.features")}</h2>
           <div className="features">
-            <div className="feature-card" >
+            <div className="feature-card" onClick={addContact} >
               <span>➕</span>
               <h3>{t("about.add_contact_title")}</h3>
               <p>{t("about.add_contact_desc")}</p>
@@ -43,7 +52,7 @@ const About = () => {
                 <p>{t("about.edit_contact_desc")}</p>
               </div>
 
-            <div className="feature-card">
+            <div className="feature-card" onClick={navigateToSearch} style={{ cursor: "pointer" }}>
               <span>🔍</span>
               <h3>{t("about.search_contact_title")}</h3>
               <p>{t("about.search_contact_desc")}</p>
