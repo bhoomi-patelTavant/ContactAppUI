@@ -2,15 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { Button, IconButton, MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
+import { Button, MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/languageSlice';
 import type { RootState, AppDispatch } from "../../store/reduxStore";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-
-function UserAvatar() {
-  return <Avatar sx={{ bgcolor: "secondary.main", width: 32, height: 32 }}>U</Avatar>;
-}
 
 interface NavbarProps {
   onLogout: () => void;

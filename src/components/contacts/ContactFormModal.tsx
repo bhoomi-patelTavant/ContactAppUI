@@ -35,7 +35,7 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
   const [selectedContact, setSelectedContact] = useState<Contact | ContactFormState | null | undefined>(conSelectedContact);
   const [form, setForm] = useState<ContactFormState>(contForm || emptyContactForm);
   const [modeState, setModeState] = useState<"add" | "edit" | "">(mode);
-  const { loading, request } = useApi<any>();
+  const { request } = useApi<any>();
   const userId = useRoleStore((state) => state.userId);
 
   const feildDetails = {

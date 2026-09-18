@@ -86,6 +86,7 @@ function Dashboard() {
 
   useEffect(() => {
     getAllContacts();
+    console.log(alert);
   }, []);
 
   const [searchParams] = useSearchParams();
