@@ -90,5 +90,13 @@
         "admin": "Administradora",
         "user": "Usuario",
         "super_admin": "Súper administrador"
+    },
+    "profile": {
+        "back_button": "Volver",
+        "unknown_user": "Usuario desconocido",
+        "username_label": "Nombre de usuario",
+        "email_label": "Dirección de correo electrónico",
+        "role_label": "Rol",
+        "view_profile": "Ver perfil"
     }
 }

@@ -1,4 +1,7 @@
 @import url('bootstrap/dist/css/bootstrap.min.css');
+.css-jcd8gs-MuiAvatar-root {
+  background-color: #1e3a8a !important;
+}
 .counter {
   font-size: 16px;
   padding: 5px 10px;

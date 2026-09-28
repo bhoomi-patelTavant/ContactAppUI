@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
 import Navbar from "./components/NavBar/NavBar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -7,11 +8,12 @@ import NotFound from "./pages/NotFound";
 import { useState } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import Footer from "./components/Footer/Footer";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => sessionStorage.getItem("isLoggedIn") === "true");
-  
+
   const handleAuthChange = (value: boolean) => {
     sessionStorage.setItem("isLoggedIn", String(value));
     setIsLoggedIn(value);
@@ -33,6 +35,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/contacts" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
+        <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer></Footer>

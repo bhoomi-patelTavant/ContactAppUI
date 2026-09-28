@@ -17,8 +17,7 @@ function Login({ onLogin }: LoginProps) {
     const navigate = useNavigate();
     const { loading, request } = useApi<any>();
     //const { setUserRole } = useUserRoleContext();
-    const setUserRole = useRoleStore((state) => state.setUserRole);
-    const setUserId = useRoleStore((state) => state.setUserId);
+    const setUserDetails = useRoleStore((state) => state.setUserDetails);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -41,12 +40,18 @@ function Login({ onLogin }: LoginProps) {
                 setAlert({ type: "error", message: response.message || "Login failed" });
                 return;
             }
-            setUserRole(response.data.user_role);
-            setUserId(response.data.id);
+
+            setUserDetails({
+                username: response?.data?.username,
+                email: response?.data?.email,
+                userRole: response?.data?.user_role || "user",
+                userId: response?.data?.id || 0
+            });
             sessionStorage.setItem("isLoggedIn", "true");
             setAlert({ type: "success", message: "Login successful" });
             onLogin();
             navigate("/contacts");
+
         } catch (loginError: any) {
             const errorMessage =
                 loginError?.error ||

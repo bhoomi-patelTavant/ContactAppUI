@@ -2,11 +2,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { Button, MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
+import { MenuItem, OutlinedInput, Select, type SelectChangeEvent } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/languageSlice';
 import type { RootState, AppDispatch } from "../../store/reduxStore";
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { ProfileMenu } from "./ProfileMenu";
+import { useRoleStore } from "../../store/store";
 
 interface NavbarProps {
   onLogout: () => void;
@@ -25,6 +26,8 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
   const [language, setLanguage] = useState<string>(lang);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const username = useRoleStore((state) => state.userDetails.username);
+  const email = useRoleStore((state) => state.userDetails.email);
 
   const onChangeLang = (e: SelectChangeEvent) => {
     const lang_code = e.target.value;
@@ -36,6 +39,10 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
   function handleLogout() {
     navigate("/login");
     onLogout();
+  }
+
+  function handleViewProfile() {
+    navigate("/profile");
   }
 
   useEffect(() => {
@@ -91,17 +98,14 @@ function Navbar({ onLogout, isLoggedIn }: NavbarProps) {
           <MenuItem value="de">German</MenuItem>
         </Select>
 
-        {isLoggedIn && <>
-
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ borderRadius: 999, px: 2.5, py: 1 }}
-            startIcon={<LogoutRoundedIcon />} // Puts the icon before the text
-            onClick={() => handleLogout()}
-          >
-            {t("nav_links.logout_link")}
-          </Button></>}
+        {isLoggedIn && (
+          <ProfileMenu
+            userName={username}
+            userEmail={email}
+            onViewProfile={handleViewProfile}
+            onLogout={handleLogout}
+          />
+        )}
       </div>
 
       {/*  <select defaultValue={i18n.language} onChange={onChangeLang}>

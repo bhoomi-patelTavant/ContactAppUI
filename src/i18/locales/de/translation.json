@@ -91,5 +91,13 @@
         "admin": "Admin",
         "user": "Benutzer",
         "super_admin": "Super Admin"
+    },
+    "profile": {
+        "back_button": "Zurück",
+        "unknown_user": "Unbekannter Benutzer",
+        "username_label": "Benutzername",
+        "email_label": "E-Mail-Adresse",
+        "role_label": "Rolle",
+        "view_profile": "Profil anzeigen"
     }
 }

@@ -6,6 +6,7 @@ import {
   Button,
   Chip,
   Container,
+  IconButton,
   Paper,
   Stack,
   TextField,
@@ -31,6 +32,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store/reduxStore";
 import { Spinner } from '../components/spinner/Spinner';
 import { useSearchParams } from "react-router-dom";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 /* const initialContacts: Contact[] = [
   {
@@ -72,8 +74,8 @@ function Dashboard() {
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   //const { userRole } = useUserRoleContext();
-  const userRole = useRoleStore((state) => state.userRole);
-  const userId = useRoleStore((state) => state.userId);
+  const userRole = useRoleStore((state) => state.userDetails.userRole);
+  const userId = useRoleStore((state) => state.userDetails.userId);
   const { loading, request } = useApi<any>();
   const [isLoading, setIsLoading] = useState<boolean>(loading);
   const { t, i18n } = useTranslation();
@@ -126,29 +128,12 @@ function Dashboard() {
           setFeedback({ type: "success", message: t("alert_meassages.update_contact") });
         } else if (operation === "delete") {
           setFeedback({ type: "success", message: t("alert_meassages.delete_contact") });
+          setDeleteTarget(null);
         }
       }
       return response;
     } catch (e: any) {
       setFeedback({ type: "error", message: t("alert_meassages.error_contact") });
-      throw e;
-    }
-  };
-
-  const deleteContact = async (): Promise<Contact> => {
-    try {
-      const response = await request("DELETE", `/contacts/${deleteTarget?.id}`);
-      setFeedback({ type: "success", message: t("alert_meassages.delete_contact") });
-      getAllContacts("delete");
-      setDeleteTarget(null);
-      handleCloseDialog();
-      return await response;
-    } catch (e: any) {
-      const errorMessage =
-        e?.error ||
-        e?.response?.data?.message ||
-        e?.message;
-      setAlert({ type: "error", message: errorMessage });
       throw e;
     }
   };
@@ -255,14 +240,6 @@ function Dashboard() {
     loadRows();
   }, [lang, feedback?.message]);
 
-  const handleDeleteConfirm = () => {
-    if (!deleteTarget) {
-      return;
-    }
-    setContacts((prev: any) => prev.filter((contact: any) => contact.id !== deleteTarget.id));
-    deleteContact();
-  };
-
   const columns: GridColDef[] = [
     {
       field: "name",
@@ -293,6 +270,8 @@ function Dashboard() {
       sortable: false,
       filterable: false,
       minWidth: 350,
+      headerClassName: "actions-header",
+      cellClassName: "actions-cell",
       renderCell: (params) => {
         if (userRole !== "Admin" && userRole !== "Super Admin") {
           return (
@@ -362,6 +341,9 @@ function Dashboard() {
                   }}
                 />
                 <Chip label={`${filteredContacts().length}` + " " + t("contacts")} color="primary" variant="outlined" sx={{ borderRadius: 999 }} />
+                <IconButton onClick={() => getAllContacts()} color="primary" aria-label="refresh">
+                  <RefreshIcon />
+                </IconButton>
               </Box>
             </Box>
 
@@ -386,6 +368,7 @@ function Dashboard() {
                     "& .MuiDataGrid-row:hover": { backgroundColor: "#f9fbff" },
                     "& .MuiDataGrid-cell": {
                       alignItems: "center",
+                      backgroundColor: "#f7faff",
                       paddingTop: 0,
                       paddingBottom: 0,
                       whiteSpace: "nowrap",
@@ -421,7 +404,13 @@ function Dashboard() {
                     },
                     "& .MuiTablePagination-actions": {
                       paddingBottom: "20px"
-                    }
+                    },
+                    "& .MuiButtonBase-root": {
+                      color: "#1e3a8a",
+                    },
+                    "& .MuiButton-colorError": {
+                      color: "red !important",
+                    },
                   }}
                 />
               </ThemeProvider>
@@ -436,13 +425,14 @@ function Dashboard() {
           conSelectedContact={selectedContact}
           getAllContacts={getAllContacts}
           totalContacts={contacts.length}
+          onClose={handleCloseDialog}
         />
 
         <DeleteContactModal
           open={Boolean(deleteTarget)}
           contact={deleteTarget}
           onClose={() => setDeleteTarget(null)}
-          onConfirm={handleDeleteConfirm}
+          getAllContacts={getAllContacts}
         />
 
         <ContactViewCard contact={viewContact} onClose={handleCloseView} />

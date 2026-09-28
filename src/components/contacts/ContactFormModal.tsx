@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import isEqual from 'lodash/isEqual'; // Import only the required utility
 import { enCountries } from "../../assets/country.en";
 import { esCountries } from "../../assets/country.es";
-import { deCountries } from "../../assets/country.de"
+import { deCountries } from "../../assets/country.de";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/reduxStore";
@@ -21,10 +21,11 @@ interface ContactFormModalProps {
   open: boolean;
   getAllContacts?: (action: "add" | "edit" | "delete") => void;
   totalContacts?: number;
+  onClose: () => void;
 }
 
 
-function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedContact, getAllContacts }: ContactFormModalProps) {
+function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedContact, getAllContacts, onClose }: ContactFormModalProps) {
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
   const [form, setForm] = useState<ContactFormState>(contForm || emptyContactForm);
   const [modeState, setModeState] = useState<"add" | "edit" | "">(mode);
   const { request } = useApi<any>();
-  const userId = useRoleStore((state) => state.userId);
+  const userId = useRoleStore((state) => state.userDetails.userId);
 
   const feildDetails = {
     name: {
@@ -76,7 +77,12 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
   useEffect(() => {
     setSelectedContact(conSelectedContact);
     setForm(contForm || emptyContactForm);
+    setShowAlert(false);
   }, [contForm, conSelectedContact]);
+
+  useEffect(() => {
+    
+  } , []);
 
   useEffect(() => {
     if (selectedContact) {
@@ -86,11 +92,11 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
     }
   }, [selectedContact, mode, modeState, open]);
 
-  /* useEffect(() => {
-    if (mode === "add" && modeState === "add" && openDialog === false) {
-
+  useEffect(() => {
+    if (form === emptyContactForm && modeState === "add") {
+      setOpenDialog(true);
     }
-  }, [modeState]); */
+  },[modeState]);
 
   const countries = useMemo(() => {
     switch (language) {
@@ -185,6 +191,7 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
     setSelectedContact(null);
     setForm(emptyContactForm);
     setModeState("");
+    onClose();
   };
 
   const getContactDetails = (form: ContactFormState): Contact => {
@@ -215,7 +222,7 @@ function ContactFormModal({ mode, open, contForm,totalContacts, conSelectedConta
   };
 
   return (
-    <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
       <DialogTitle sx={{ fontWeight: 700, color: "#223750" }}>
         {mode === "add" ? t("add_contact") : t("edit_contact")}
         {showAlert && (
